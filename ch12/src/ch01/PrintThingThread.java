@@ -11,6 +11,4 @@ public class PrintThingThread extends Thread{
     		 }catch(Exception e) {}
         }
 	}
-	
-
 }

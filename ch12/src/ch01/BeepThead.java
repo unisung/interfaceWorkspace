@@ -1,10 +1,8 @@
 package ch01;
 
 import java.awt.Toolkit;
-
 //Thread클래스를 상속받아서 생성
 public class BeepThead extends Thread {
-
 	@Override
 	public void run() {
 		 Toolkit toolkit = Toolkit.getDefaultToolkit();
@@ -15,5 +13,4 @@ public class BeepThead extends Thread {
 			   }catch(Exception e) {}
 		 }
 	}
-
 }

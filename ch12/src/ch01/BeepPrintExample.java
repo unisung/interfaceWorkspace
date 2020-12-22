@@ -1,9 +1,7 @@
 package ch01;
 
 import java.awt.Toolkit;
-
 public class BeepPrintExample {
-
 public static void main(String[] args) {
 	//싱글 쓰레드 방식 
 	//beep() 반복문 종료 후
@@ -22,7 +20,6 @@ public static void main(String[] args) {
 			 Thread.sleep(500);
 		 }catch(Exception e) {}
 	 }
-
 	}//main()끝.
 
 }

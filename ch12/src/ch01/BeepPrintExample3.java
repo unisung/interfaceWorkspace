@@ -1,7 +1,5 @@
 package ch01;
-
 public class BeepPrintExample3 {
-
 	public static void main(String[] args) {
 	 //쓰레드 생성
 	   Thread thread = new BeepThead();
