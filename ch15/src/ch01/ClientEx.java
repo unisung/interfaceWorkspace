@@ -17,7 +17,7 @@ public class ClientEx {
 		  Scanner scanner = new Scanner(System.in);
 		  try {
 			  //프로그램 실행하면 socket생성되면서 접속
-			    socket=new Socket("127.0.0.1",9111);
+			    socket=new Socket("localhost",9111);//localhost=127.0.0.1과 같은 도메인명
 			    //통신데이타 이동 통로 생성 
 	 in =new BufferedReader(new InputStreamReader(socket.getInputStream()));//단방향 입력스트림
 	out=new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));//단방향 출력스트림  
