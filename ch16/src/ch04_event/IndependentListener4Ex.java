@@ -10,9 +10,9 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 
 //GUI 프로그램 이벤트 처리
-public class IndependentListener2Ex extends JFrame{
+public class IndependentListener4Ex extends JFrame{
    //생성자
-	public IndependentListener2Ex() throws HeadlessException {
+	public IndependentListener4Ex() throws HeadlessException {
 		 setTitle("Action 이벤트 리스너 예제");
 		 setDefaultCloseOperation(EXIT_ON_CLOSE);
 		 //컴포넌트 부착할 컨텐이너 얻기
@@ -35,19 +35,21 @@ public class IndependentListener2Ex extends JFrame{
 	}
 
 	public static void main(String[] args) {
-		 new IndependentListener2Ex();
+		 new IndependentListener4Ex();
+	}
+	
+	//이벤트 처리 클래스
+	class MyActionListener2 implements ActionListener{
+		@Override
+		public void actionPerformed(ActionEvent e) {//이벤트 객체를 매개변수로 받아서 처리
+			  JButton b = (JButton)e.getSource();//이벤트가 발생한 컴포넌트 확인
+			  if(b.getText().equals("Hello")) 
+				  b.setText("안녕");
+			  else
+				  b.setText("Hello");
+		}
 	}
 }
-//이벤트 처리 클래스
-class MyActionListener2 implements ActionListener{
-	@Override
-	public void actionPerformed(ActionEvent e) {//이벤트 객체를 매개변수로 받아서 처리
-		  JButton b = (JButton)e.getSource();//이벤트가 발생한 컴포넌트 확인
-		  if(b.getText().equals("Hello")) 
-			  b.setText("안녕");
-		  else
-			  b.setText("Hello");
-	}
-}
+
 
 
