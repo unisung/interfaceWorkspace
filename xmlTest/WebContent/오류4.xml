@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<test>
+	<!--  <and> YOU & ME</and> -->
+	  <!-- <and> YOU &amp; ME</and> -->
+	  <and> <![CDATA[ YOU &amp; ME ]]></and>
+</test>
