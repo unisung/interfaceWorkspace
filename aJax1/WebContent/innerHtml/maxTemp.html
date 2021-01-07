@@ -1,0 +1,47 @@
+<!DOCTYPE html><html><head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="../js/httpRequest.js"></script>
+<script>
+function maxView(){
+	sendRequest("maxTemp.jsp", null, maxResult, "GET");
+}
+function maxResult(){
+	if(httpRequest.readyState==4){
+		if(httpRequest.status==200)//OK
+		  {
+			alert("결과:"+httpRequest.responseText);
+			var csvStr = httpRequest.responseText;
+			var temp=document.getElementById("temp");
+			temp.innerHTML=csvStr;
+			
+			var start =csvStr.indexOf('<body>');//인덱스값
+			var end=csvStr.lastIndexOf('</body>');//</body></body></body>
+			var csvData = csvStr.substring(start+6,end);//<body>,</body>제거
+			
+			var tempArr = csvData.split(",");
+			console.log(tempArr);
+			//배열에 실수형태 저장
+			for(var i=0;i<tempArr.length;i++) tempArr[i]=parseFloat(tempArr[i]);
+			console.log(tempArr);
+			//최대값 찾기
+			var max=0;
+			for(var i=0;i<tempArr.length;i++){
+				if(max<tempArr[i]) max=tempArr[i];
+			}
+			//max저장
+			document.getElementById("max").innerHTML=max;
+		  }
+		else//status가 200이 아닌 경우
+		  alert("실패:"+httpRequest.status);
+	}
+}
+</script>
+</head>
+<body>
+<div id = "temp"></div><p>
+최고 기온은 <span id="max"></span>입니다<p>
+<input type="button" value="최고온도 보기" onclick="maxView()">
+
+</body>
+</html>

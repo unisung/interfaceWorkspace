@@ -1,0 +1,25 @@
+<!DOCTYPE html><html><head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<script src="../js/httpRequest.js"></script>
+<script>
+window.onload = function() { loadNews(); }
+function loadNews(){
+	sendRequest('serverOut.jsp',null,loadedNews,'get');
+}
+function loadedNews(){
+	if(httpRequest.readyState==4){
+		if(httpRequest.status==200){//OK
+		   var list = document.getElementById("newsList");
+		   		list.innerHTML=httpRequest.responseText;
+		}
+		else//status가 200이 아닌 경우
+		  alert("실패:"+httpRequest.status);
+	}
+}
+</script>
+<body>
+<div id="newsList"></div>
+</body>
+</html>
