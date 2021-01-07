@@ -1,0 +1,98 @@
+<!DOCTYPE html><html><head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="../js/httpRequest.js"></script>
+<script>
+var checkFirst=false;
+var lastKeyword='';
+var loopSendKeyword=false;
+
+function startSuggest(){
+	if(checkFirst==false){
+		setTimeout("sendKeyword()",500);//sendKeyword()함수를 0.5초 후 실행
+		loopSendKeyword=true;
+	}
+	checkFirst=true;
+}
+
+function sendKeyword(){
+	if(loopSendKeyword==false) return;
+	var keyword=document.search.keyword.value;
+	if(keyword==''){
+		lastKeyword='';
+		hide('suggest');
+	}else  if(keyword!=''){
+		var params="keyword="+encodeURIComponent(keyword);
+		sendRequest("suggest.jsp",params,displayResult,'post');
+	}else{
+		hide('suggest');
+	}
+	setTimeout("sendKeyword();",500);
+}
+
+function displayResult(){
+	if(httpRequest.readyState==4){
+		if(httpRequest.status==200){//OK
+		 var resultText=httpRequest.responseText;
+		
+		 console.log(resultText);
+		 var start =resultText.indexOf('<body>');//인덱스값
+		 var end=resultText.lastIndexOf('</body>');//</body></body></body>
+		 var result1 = resultText.substring(start+6,end);//<body>,</body>제거
+		 var result=result1.split('|');
+		 var count=parseInt(result[0]);
+
+		 var keywordList = null;
+		  console.log(count);
+		 if(count>0){
+			 console.log("xxx");
+			 keywordList=result[1].split(',');
+			 var html='';
+			 for(var i=0;i<keywordList.length;i++){
+				 html+="<a href=\"javascript:select('"+keywordList[i]+"')\">"+keywordList[i]+"</a><br>";
+				 
+			 }
+			
+			 var listView = document.getElementById('suggestList');
+			 listView.innerHTML=html;
+			 show('suggest');
+		 }else{
+			 hide('suggest');
+		 }
+		}
+		else//status가 200이 아닌 경우
+		  alert("실패:"+httpRequest.status);
+	}
+}
+function select(selectedKeyword){
+	document.search.keyword.value=selectedKeyword;
+	loopSendKeyword=false;
+	checkFirst=false;
+	hide('suggest');
+}
+function show(elementId){
+	var element = document.getElementById(elementId);
+	if(element){
+		element.style.display='';
+	}
+}
+function hide(elementId){
+	var element = document.getElementById(elementId);
+	if(element){
+		element.style.display='none';
+	}
+}
+</script>
+<style>
+	#view {border:1px solid #999;}
+</style>
+</head>
+<body>
+   <form name="search">
+     <input type="text" name="keyword" id="keyword" onkeydown="startSuggest()">
+     <input type="button" value="검색">
+     <div id="suggest" style="display:; position:aobsolute; left:0px;top:30px;"></div>
+     <div id="suggestList"></div>
+   </form>
+</body>
+</html>
