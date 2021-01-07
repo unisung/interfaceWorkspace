@@ -1,0 +1,43 @@
+<!DOCTYPE html><html><head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script>
+ var httpRequest=null;
+ //MLHttpRequest객체 생성 함수
+ function getMLHttpRequest(){
+	 if(window.ActiveXObject){
+		 return new ActiveXObject("Msxml2.XMLHTTP");
+	 }else if(window.XMLHttpRequest){
+		 return new XMLHttpRequest();
+	 }else{
+		 return null;
+	 }
+ }
+ //버튼 클릭시 load()함수
+ function load(url){
+	 httpRequest=getMLHttpRequest();//객체 생성
+	 httpRequest.onreadystatechange =viewMessage;//callback함수 설정
+	 httpRequest.open("GET",url,true);//요청 방식/페이지 설정
+	 httpRequest.send(null);// 요청 시작
+ }
+ //callback함수 선언
+ function viewMessage(){
+	 alert("상태:"+httpRequest.readyState
+			   +",결과 상태:"+httpRequest.status+"-"+httpRequest.statusText);
+	 alert("결과:"+httpRequest.responseText);
+ }
+</script>
+</head>
+<body>
+
+		<input type="button" 
+		          value="sample1.txt파일가져오기"
+		          onclick="load('sample1.txt')">
+	<br>
+	<input type="button" 
+		          value="sample2.txt파일가져오기"
+		          onclick="load('sample2.txt')">	          
+		          
+		
+</body>
+</html>
